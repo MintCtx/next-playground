@@ -7,6 +7,9 @@ export default function Home() {
         <li>
           <Link href="/applemints">Go to Applemints</Link>
         </li>
+        <li>
+          <Link href="/shuka">Go to Shuka</Link>
+        </li>
       </ul>
     </div>
   );
