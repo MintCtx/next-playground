@@ -1,3 +1,13 @@
+import Link from "next/link";
+
 export default function Home() {
-  return <div>Next.js Playground!</div>;
+  return (
+    <div>
+      <ul>
+        <li>
+          <Link href="/applemints">Go to Applemints</Link>
+        </li>
+      </ul>
+    </div>
+  );
 }
