@@ -1,5 +1,6 @@
 'use client'
 
+import Button from "@/app/common/Button";
 import { useState } from "react";
 
 const CounterPage = () => {
@@ -10,8 +11,8 @@ const CounterPage = () => {
       <h1>Shuka's Counter Page!</h1>
       <br />
       <p>counter: {counter}</p>
-      <button onClick={() => setCounter(cur => cur + 1)}>+</button>
-      <button onClick={() => setCounter(cur => cur - 1)}>-</button>
+      <Button name="+" onClick={() => setCounter(cur => cur + 1)} />
+      <Button name="-" onClick={() => setCounter(cur => cur - 1)} />
     </div>
   );
 };
