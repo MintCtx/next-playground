@@ -1,0 +1,13 @@
+{
+  "recommendations": [
+    "pkief.material-icon-theme",
+    "formulahendry.auto-rename-tag",
+    "exodiusstudios.comment-anchors",
+    "mhutchie.git-graph",
+    "github.copilot",
+    "github.copilot-chat",
+    "github.vscode-pull-request-github",
+    "eamodio.gitlens",
+    "esbenp.prettier-vscode"
+  ]
+}
