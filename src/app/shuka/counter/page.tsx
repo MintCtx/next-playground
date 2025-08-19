@@ -1,7 +1,7 @@
-"use client";
+'use client';
 
-import { useState } from "react";
-import styles from "./counter-styles.module.css";
+import { useState } from 'react';
+import styles from './counter-styles.module.css';
 
 const CounterPage = () => {
   const [counter, setCounter] = useState(0);
