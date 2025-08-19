@@ -1,15 +1,23 @@
+## Installation
+
+### pnpm
+
+```bat
+npm install -g pnpm@latest-10
+```
+
+### package install
+
+```bat
+pnpm install
+```
+
 ## Getting Started
 
 First, run the development server:
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
 pnpm dev
-# or
-bun dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
@@ -29,3 +37,4 @@ main <- staging <- 機能名/Issue番号
 ### コーディング関連
 
 できる限り Arrow Function を使う。
+ファイル名はケバブケースで作成する。
