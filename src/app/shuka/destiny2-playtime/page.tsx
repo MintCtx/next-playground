@@ -19,6 +19,7 @@ const Destiny2PlayTime = () => {
         </h6>
       </div>
       <SearchGuardian />
+      {/* <ResultList /> */}
     </div>
   );
 };
