@@ -8,7 +8,9 @@ const Destiny2PlayTime = () => {
     <div className={styles.body}>
       <div className={styles.title}>
         <h1>
-          <Image src={titleImg} alt="Deep Stats Crypt" width={50} height={50} />
+          <div>
+            <Image src={titleImg} alt="Deep Stats Crypt" fill={true} />
+          </div>
           Deep Stats Crypt
         </h1>
         <h5>The chains of legacy must be broken.</h5>

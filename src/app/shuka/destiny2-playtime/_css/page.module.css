@@ -12,6 +12,13 @@
   font-size: 30px;
 }
 
+.title div {
+  position: relative;
+  width: 15vh;
+  height: 15vh;
+  margin-right: 10px;
+}
+
 .title h1 {
   display: flex;
   align-items: center;
