@@ -1,19 +1,26 @@
 'use client';
 
-import ImgButton from '@/app/shuka/destiny2-playtime/_components/img-button';
-import styles from '../destiny-styles.module.css';
+import styles from '../_css/search-guardian.module.css';
 import OperatorImg from '../assets/imgs/operator-icon.jpg';
+import ImageButton from '@/app/shuka/destiny2-playtime/_components/image-button';
+import { useEffect, useState } from 'react';
 
 const SearchGuardian = () => {
+  const [isMounted, setIsMounted] = useState(false);
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
+  if (!isMounted) {
+    return null;
+  }
+
   return (
     <div className={styles.search}>
       <form action="submit" onSubmit={(e) => e.preventDefault()}>
         <input type="text" placeholder="Search for a Guardian..." />
-        <ImgButton
-          src={OperatorImg}
-          alt="operator"
-          onClick={(e) => e.preventDefault()}
-        />
+        <ImageButton src={OperatorImg} alt="operator" type="submit" />
       </form>
     </div>
   );
