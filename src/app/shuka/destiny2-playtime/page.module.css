@@ -33,6 +33,7 @@
 }
 
 .resultList {
+  width: 30vw;
   margin-top: 20px;
   display: flex;
   flex-direction: column;
@@ -42,7 +43,6 @@
 .resultItem {
   padding: 10px;
   font-size: 20px;
-  width: 30vw;
   display: flex;
   flex-direction: row;
   justify-content: space-between;

@@ -1,5 +1,5 @@
-import styles from './_css/page.module.css';
-import SearchGuardian from './_components/search-guardian';
+import styles from './page.module.css';
+import SearchGuardian from './_components/search/search-guardian';
 import Image from 'next/image';
 import titleImg from './assets/imgs/raid-icon.png';
 
