@@ -1,5 +1,5 @@
 import styles from './result-item.module.css';
-import PlatFormList from '../platform-list/platform-list';
+import PlatformList from '../platform-list/platform-list';
 
 const ResultItem = ({ item }: { item: string }) => {
   return (
@@ -7,7 +7,7 @@ const ResultItem = ({ item }: { item: string }) => {
       {/* TODO:liの・はどこに行った */}
       <li className={styles.resultItem}>
         {item} result#1234
-        <PlatFormList />
+        <PlatformList />
       </li>
     </div>
   );

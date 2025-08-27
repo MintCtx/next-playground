@@ -1,16 +1,16 @@
-import PlatFormItem from '../platform-item/platform-item';
+import PlatformItem from '../platform-item/platform-item';
 
 // const tmpList = [0];
 const tmpList = [0, 1, 2, 3, 4];
 
-const PlatFormList = () => {
+const PlatformList = () => {
   return (
     <div>
       {tmpList.map((item) => (
-        <PlatFormItem key={item} />
+        <PlatformItem key={item} />
       ))}
     </div>
   );
 };
 
-export default PlatFormList;
+export default PlatformList;
