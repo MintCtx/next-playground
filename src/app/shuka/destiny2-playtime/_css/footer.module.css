@@ -1,0 +1,16 @@
+.footer {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+}
+
+.footer span {
+  margin-right: 10px;
+}
+
+.link {
+  text-decoration: none;
+  color: inherit;
+  border: 1px solid white;
+  border-radius: 5px;
+}
