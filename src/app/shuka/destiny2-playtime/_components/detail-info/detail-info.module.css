@@ -1,0 +1,73 @@
+.detailInfo {
+  width: 40vw;
+  border: 1px solid white;
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.userInfo {
+  width: 100%;
+  margin: 10px;
+}
+
+.userMainInfo {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 10px;
+}
+
+.userMainInfo p {
+  font-size: 40px;
+  margin-left: 10px;
+}
+
+.clanInfo {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  width: 50%;
+}
+
+.clanInfo p {
+  font-size: 30px;
+  margin-left: 10px;
+}
+
+.playInfo {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: start;
+  flex-flow: wrap;
+  width: 100%;
+  margin-top: 50px;
+  margin-bottom: 10px;
+}
+
+.playInfoDetail {
+  width: 45%;
+  min-height: 100px;
+  border: 1px solid white;
+}
+
+.column {
+  font-size: 20px;
+}
+
+.value {
+  font-size: 25px;
+  margin-left: 30px;
+  margin-bottom: 20px;
+}
+
+.dropDownDiv {
+  width: 90%;
+  align-items: center;
+  border: 1px solid white;
+}
