@@ -26,7 +26,9 @@ type UserSearchResponse = {
 export const GET = async (
   req: NextRequest
 ): Promise<NextResponse<UserDetailInfoModel[]>> => {
+  // Bungie API Key
   const apiKey = process.env.BUNGIE_API_KEY;
+  // https://www.bungie.net/
   const baseUrl = process.env.NEXT_PUBLIC_BUNGIE_BASE_URL;
   const url = baseUrl + '/Platform/User/Search/GlobalName/0';
 
