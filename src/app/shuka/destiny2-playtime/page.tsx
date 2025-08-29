@@ -1,5 +1,5 @@
 import styles from './page.module.css';
-import SearchGuardian from './_components/search/search-guardian';
+import SearchContainer from './_components/search-container/search-container';
 import Image from 'next/image';
 import titleImg from './assets/imgs/raid-icon.png';
 
@@ -18,8 +18,7 @@ const Destiny2PlayTime = () => {
           Shatter the legacy and uncover the hours the Guardian has burned.
         </h6>
       </div>
-      <SearchGuardian />
-      {/* <ResultList /> */}
+      <SearchContainer />
     </div>
   );
 };
