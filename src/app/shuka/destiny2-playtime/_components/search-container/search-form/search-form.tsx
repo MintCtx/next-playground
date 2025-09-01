@@ -1,6 +1,6 @@
-import ImageButton from '../button/image-button';
+import ImageButton from '../../button/image-button';
 import styles from './search-form.module.css';
-import OperatorImg from '../../assets/imgs/operator-icon.jpg';
+import OperatorImg from '../../../assets/imgs/operator-icon.jpg';
 
 type SearchFormProps = {
   onSearch: (e: React.FormEvent<HTMLFormElement>) => void;

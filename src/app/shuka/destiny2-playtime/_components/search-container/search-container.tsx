@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { UserDetailInfoModel } from '../../users/types';
-import SearchForm from '../search-form/search-form';
+import SearchForm from './search-form/search-form';
 
 const SearchContainer = () => {
   const [isMounted, setIsMounted] = useState(false);
