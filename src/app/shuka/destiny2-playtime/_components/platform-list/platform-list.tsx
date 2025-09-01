@@ -1,13 +1,16 @@
-import PlatformItem from '../platform-item/platform-item';
+import PlatformItem from './platform-item/platform-item';
+import styles from './platform-list.module.css';
 
-// const tmpList = [0];
-const tmpList = [0, 1, 2, 3, 4];
+type PlatformListProps = {
+  memberships: Array<{ type: number; id: string; iconpath: string }>;
+  // UserInfoCard[]
+};
 
-const PlatformList = () => {
+const PlatformList = ({ memberships }: PlatformListProps) => {
   return (
-    <div>
-      {tmpList.map((item) => (
-        <PlatformItem key={item} />
+    <div className={styles.platformList}>
+      {memberships.map((membership) => (
+        <PlatformItem key={membership.type} membership={membership} />
       ))}
     </div>
   );

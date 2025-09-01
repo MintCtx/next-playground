@@ -18,14 +18,14 @@ const SearchGuardian = () => {
   }
 
   return (
-    <div>
+    <div className={styles.container}>
       <div className={styles.search}>
         <form action="submit" onSubmit={(e) => e.preventDefault()}>
           <input type="text" placeholder="Search for a Guardian..." />
           <ImageButton src={OperatorImg} alt="operator" type="submit" />
         </form>
       </div>
-      <ResultList />
+      <ResultList userList={[]} />
     </div>
   );
 };
