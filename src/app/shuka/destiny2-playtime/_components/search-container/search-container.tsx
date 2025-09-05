@@ -1,13 +1,13 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { UserDetailInfoModel } from '../../users/types';
+import { UserDetailInfo } from '../../../../api/shuka/destiny2-playtime/users/types';
 import SearchForm from './search-form/search-form';
 
 const SearchContainer = () => {
   const [isMounted, setIsMounted] = useState(false);
   const [value, setValue] = useState('');
-  const [userList, setUserList] = useState<UserDetailInfoModel[]>([]);
+  const [userList, setUserList] = useState<UserDetailInfo[]>([]);
   const [isLoading, setIsLoading] = useState(false);
 
   /**
@@ -34,20 +34,20 @@ const SearchContainer = () => {
    * ユーザー名検索のAPI要請
    * @returns
    */
-  const searchByName = async (): Promise<UserDetailInfoModel[]> => {
+  const searchByName = async (): Promise<UserDetailInfo[]> => {
     const queryParams: { name: string } = {
       name: value,
     };
     const queryString: string = new URLSearchParams(queryParams).toString();
 
     const response = await fetch(
-      `/shuka/destiny2-playtime/users?${queryString}`,
+      `../api/shuka/destiny2-playtime/users?${queryString}`,
       {
         method: 'GET',
       }
     );
 
-    const data: Promise<UserDetailInfoModel[]> = await response.json();
+    const data = await response.json();
 
     return data;
   };

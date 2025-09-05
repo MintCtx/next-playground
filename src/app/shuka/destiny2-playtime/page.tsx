@@ -3,7 +3,7 @@ import SearchContainer from './_components/search-container/search-container';
 import Image from 'next/image';
 import titleImg from './assets/imgs/raid-icon.png';
 
-const Destiny2PlayTime = () => {
+const Destiny2PlayTimePage = () => {
   return (
     <div className={styles.body}>
       <div className={styles.title}>
@@ -23,4 +23,4 @@ const Destiny2PlayTime = () => {
   );
 };
 
-export default Destiny2PlayTime;
+export default Destiny2PlayTimePage;
