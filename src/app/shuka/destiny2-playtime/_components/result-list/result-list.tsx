@@ -4,10 +4,10 @@ import NamePlate from './result-item/name-plate/name-plate';
 import ResultItem from './result-item/result-item';
 
 type ResultListProps = {
-  tmpArr: Array<any>;
+  userList: Array<any>;
 };
 
-const ResultList = ({ tmpArr }: ResultListProps) => {
+const ResultList = ({ userList }: ResultListProps) => {
   const renderResultItem = (user: any) => {
     const { name, code, memberships } = user;
     return (
@@ -21,7 +21,7 @@ const ResultList = ({ tmpArr }: ResultListProps) => {
 
   return (
     <ul className={styles.resultList}>
-      {tmpArr.map((user) => renderResultItem(user))}
+      {userList.map((user) => renderResultItem(user))}
     </ul>
   );
 };
