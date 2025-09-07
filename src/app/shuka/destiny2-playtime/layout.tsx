@@ -1,5 +1,5 @@
-import styles from './_css/layout.module.css';
-import Footer from './_components/footer';
+import styles from './layout.module.css';
+import Footer from './_components/footer/footer';
 
 const Layout = ({ children }: { children: React.ReactNode }) => {
   return (
