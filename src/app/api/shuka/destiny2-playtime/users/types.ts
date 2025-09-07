@@ -1,5 +1,5 @@
 /**
- * SSR - ユーザー詳細情報
+ * BFF用 - ユーザー詳細情報
  */
 export type UserSearchResponseDetail = {
   bungieGlobalDisplayName: string;
@@ -9,7 +9,7 @@ export type UserSearchResponseDetail = {
 };
 
 /**
- * SSR - Destinyメンバーシップ情報
+ * BFF用 - Destinyメンバーシップ情報
  */
 export type UserInfoCard = {
   iconPath: string;
@@ -24,7 +24,7 @@ export type UserInfoCard = {
 };
 
 /**
- * CSR - ユーザー詳細情報
+ * 画面用 - ユーザー詳細情報
  */
 export type UserDetailInfo = {
   displayName: string;
@@ -33,7 +33,7 @@ export type UserDetailInfo = {
 };
 
 /**
- * CSR - Destinyメンバーシップ情報
+ * 画面用 - Destinyメンバーシップ情報
  */
 export type DestinyMembership = {
   iconPath: string;
