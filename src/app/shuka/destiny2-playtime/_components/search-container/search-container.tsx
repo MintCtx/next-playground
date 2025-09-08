@@ -3,6 +3,8 @@
 import { useEffect, useState } from 'react';
 import { UserDetailInfo } from '../../../../api/shuka/destiny2-playtime/users/types';
 import SearchForm from './search-form/search-form';
+import styles from './search-container.module.css';
+import ResultList from '../result-list/result-list';
 
 const SearchContainer = () => {
   const [isMounted, setIsMounted] = useState(false);
@@ -67,12 +69,12 @@ const SearchContainer = () => {
   };
 
   return (
-    <div>
+    <div className={styles.container}>
       <SearchForm onSearch={onSearch} onInputChange={onInputChange} />
       {isLoading ? (
         <div>Loading...</div>
       ) : Array.isArray(userList) && userList.length > 0 ? (
-        <div>画面part2</div>
+        <ResultList userList={userList} />
       ) : null}
     </div>
   );

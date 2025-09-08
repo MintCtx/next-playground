@@ -29,8 +29,3 @@
 .resultItem:hover .icon {
   opacity: 1;
 }
-
-.userName {
-  display: flex;
-  align-items: center;
-}

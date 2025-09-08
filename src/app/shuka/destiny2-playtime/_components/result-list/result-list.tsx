@@ -2,18 +2,23 @@ import styles from './result-list.module.css';
 import PlatformList from '../platform-list/platform-list';
 import NamePlate from './result-item/name-plate/name-plate';
 import ResultItem from './result-item/result-item';
+import { UserDetailInfo } from '@/app/api/shuka/destiny2-playtime/users/types';
 
 type ResultListProps = {
-  userList: Array<any>;
+  userList: UserDetailInfo[];
 };
 
 const ResultList = ({ userList }: ResultListProps) => {
-  const renderResultItem = (user: any) => {
-    const { name, code, memberships } = user;
+  /**
+   * ResultItemをレンダリングする
+   */
+  const renderResultItem = (user: UserDetailInfo) => {
+    const { displayName, code, destinyMemberships: memberships } = user;
+
     return (
       <ResultItem
         key={code}
-        namePlate={<NamePlate name={name} code={code} />}
+        namePlate={<NamePlate name={displayName} code={code} />}
         platformList={<PlatformList memberships={memberships} />}
       />
     );

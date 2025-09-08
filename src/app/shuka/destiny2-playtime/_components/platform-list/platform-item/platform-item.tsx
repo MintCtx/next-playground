@@ -1,26 +1,23 @@
 import Image from 'next/image';
 import styles from './platform-item.module.css';
+import { DestinyMembership } from '@/app/api/shuka/destiny2-playtime/users/types';
+
+/**
+ * イメージのベースパス
+ */
+const basePath = process.env.NEXT_PUBLIC_BUNGIE_BASE_URL;
 
 type PlatformItemProps = {
-  membership: {
-    type: number;
-    id: string;
-    iconpath: string;
-  };
+  membership: DestinyMembership;
 };
 
 const PlatformItem = ({ membership }: PlatformItemProps) => {
-  const { iconpath } = membership;
-  const basePath = process.env.NEXT_PUBLIC_BUNGIE_BASE_URL;
+  const { iconPath } = membership;
 
   return (
     <div className={styles.platformItem}>
       <Image
-        src={
-          iconpath
-            ? basePath + iconpath
-            : `${basePath}/img/theme/bungienet/icons/steamLogo.png`
-        }
+        src={iconPath ? `${basePath}${iconPath}` : ''}
         alt="platform"
         height={20}
         width={20}
