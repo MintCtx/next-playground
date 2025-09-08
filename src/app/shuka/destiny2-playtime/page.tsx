@@ -1,27 +1,14 @@
-import styles from './_css/page.module.css';
-import SearchGuardian from './_components/search-guardian';
-import Image from 'next/image';
-import titleImg from './assets/imgs/raid-icon.png';
+import styles from './page.module.css';
+import SearchContainer from './_components/search-container/search-container';
+import Title from './_components/title/title';
 
-const Destiny2PlayTime = () => {
+const Destiny2PlayTimePage = () => {
   return (
     <div className={styles.body}>
-      <div className={styles.title}>
-        <h1>
-          <div>
-            <Image src={titleImg} alt="Deep Stats Crypt" fill={true} />
-          </div>
-          Deep Stats Crypt
-        </h1>
-        <h5>The chains of legacy must be broken.</h5>
-        <h6>
-          Shatter the legacy and uncover the hours the Guardian has burned.
-        </h6>
-      </div>
-      <SearchGuardian />
-      {/* <ResultList /> */}
+      <Title />
+      <SearchContainer />
     </div>
   );
 };
 
-export default Destiny2PlayTime;
+export default Destiny2PlayTimePage;
