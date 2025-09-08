@@ -1,11 +1,4 @@
-.container {
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-}
-
-.search,
-.search form {
+.search {
   height: 7vh;
   width: 30vw;
   border: 2px;

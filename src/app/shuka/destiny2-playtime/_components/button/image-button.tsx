@@ -1,5 +1,4 @@
 import Image, { StaticImageData } from 'next/image';
-import styles from '../_css/search-guardian.module.css';
 
 type ImgButtonProps = {
   src: StaticImageData;
