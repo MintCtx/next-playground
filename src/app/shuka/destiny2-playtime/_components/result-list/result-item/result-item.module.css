@@ -1,0 +1,31 @@
+.resultItem {
+  padding: 10px;
+  font-size: 20px;
+  width: 24vw;
+  height: fit-content;
+  cursor: pointer;
+  display: grid;
+  grid-template-columns: 40px 1fr 0.7fr;
+  column-gap: 10px;
+  align-content: center;
+  justify-content: space-between;
+  border-radius: 20px;
+  background-color: #586275;
+  margin-bottom: 10px;
+}
+
+.resultItem:hover {
+  background-color: #2a3f66;
+  transition: 3ms;
+}
+
+.icon {
+  opacity: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.resultItem:hover .icon {
+  opacity: 1;
+}

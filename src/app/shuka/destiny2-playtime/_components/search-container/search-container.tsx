@@ -1,14 +1,37 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { ReactNode, useEffect, useState } from 'react';
 import { UserDetailInfo } from '../../../../api/shuka/destiny2-playtime/users/types';
 import SearchForm from './search-form/search-form';
+import styles from './search-container.module.css';
+import ResultList from '../result-list/result-list';
+import Loading from '../loading/loading';
+import NotFound from '../not-found/not-found';
+
+/**
+ * userListがある場合、ResultListをレンダーリング
+ * @param userList ユーザー検索結果リスト
+ * @returns 結果リストコンポーネント
+ */
+const renderResultList = (
+  isLoading: boolean,
+  userList: UserDetailInfo[]
+): ReactNode => {
+  const hasResult = Array.isArray(userList) && userList.length > 0;
+
+  if (!isLoading && hasResult) {
+    return <ResultList userList={userList} />;
+  } else {
+    return null;
+  }
+};
 
 const SearchContainer = () => {
   const [isMounted, setIsMounted] = useState(false);
   const [value, setValue] = useState('');
   const [userList, setUserList] = useState<UserDetailInfo[]>([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [isNotFound, setIsNotFound] = useState(false);
 
   /**
    * Chrome拡張機能により、Hydrate失敗の改善コード
@@ -59,21 +82,21 @@ const SearchContainer = () => {
   const onSearch = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
+    setIsNotFound(false);
     setIsLoading(true);
 
     const res = await searchByName();
     setUserList(res);
     setIsLoading(false);
+    setIsNotFound(res.length === 0);
   };
 
   return (
-    <div>
+    <div className={styles.container}>
       <SearchForm onSearch={onSearch} onInputChange={onInputChange} />
-      {isLoading ? (
-        <div>Loading...</div>
-      ) : Array.isArray(userList) && userList.length > 0 ? (
-        <div>画面part2</div>
-      ) : null}
+      {isLoading && <Loading />}
+      {isNotFound && <NotFound />}
+      {renderResultList(isLoading, userList)}
     </div>
   );
 };
