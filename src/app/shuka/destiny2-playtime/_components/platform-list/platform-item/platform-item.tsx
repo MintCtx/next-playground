@@ -11,13 +11,20 @@ type PlatformItemProps = {
   membership: DestinyMembership;
 };
 
-const PlatformItem = ({ membership }: PlatformItemProps) => {
-  const { iconPath } = membership;
+/**
+ * 外部ドメインとイメージパス合成し、返還する
+ * @param iconPath レスポンスから取得したプラットフォームのアイコンパス
+ * @returns 外部ドメインを合わせたアイコンパス|空白
+ */
+const makeIconPath = (iconPath: string): string => {
+  return iconPath ? `${basePath}${iconPath}` : '';
+};
 
+const PlatformItem = ({ membership: { iconPath } }: PlatformItemProps) => {
   return (
     <div className={styles.platformItem}>
       <Image
-        src={iconPath ? `${basePath}${iconPath}` : ''}
+        src={makeIconPath(iconPath)}
         alt="platform"
         height={20}
         width={20}

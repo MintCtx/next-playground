@@ -1,15 +1,15 @@
 import styles from './name-plate.module.css';
 
-type NamePlate = {
+type NamePlateProps = {
   name: string;
   code: number | null;
 };
 
-const NamePlate = ({ name, code }: NamePlate) => {
+const NamePlate = ({ name, code }: NamePlateProps) => {
   return (
     <>
       <div className={styles.userName}>
-        {name} &#35;{code}
+        {name}&#35;{code}
       </div>
     </>
   );

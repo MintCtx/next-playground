@@ -8,22 +8,22 @@ type ResultListProps = {
   userList: UserDetailInfo[];
 };
 
+/**
+ * ResultItemをレンダリングする
+ */
+const renderResultItem = (user: UserDetailInfo) => {
+  const { displayName, code, destinyMemberships: memberships } = user;
+
+  return (
+    <ResultItem
+      key={code}
+      namePlate={<NamePlate name={displayName} code={code} />}
+      platformList={<PlatformList memberships={memberships} />}
+    />
+  );
+};
+
 const ResultList = ({ userList }: ResultListProps) => {
-  /**
-   * ResultItemをレンダリングする
-   */
-  const renderResultItem = (user: UserDetailInfo) => {
-    const { displayName, code, destinyMemberships: memberships } = user;
-
-    return (
-      <ResultItem
-        key={code}
-        namePlate={<NamePlate name={displayName} code={code} />}
-        platformList={<PlatformList memberships={memberships} />}
-      />
-    );
-  };
-
   return (
     <ul className={styles.resultList}>
       {userList.map((user) => renderResultItem(user))}

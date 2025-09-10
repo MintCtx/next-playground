@@ -1,10 +1,29 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { ReactNode, useEffect, useState } from 'react';
 import { UserDetailInfo } from '../../../../api/shuka/destiny2-playtime/users/types';
 import SearchForm from './search-form/search-form';
 import styles from './search-container.module.css';
 import ResultList from '../result-list/result-list';
+import Loading from '../loading/loading';
+
+/**
+ * userListがある場合、ResultListをレンダーリング
+ * @param userList ユーザー検索結果リスト
+ * @returns 結果リストコンポーネント
+ */
+const renderResultList = (
+  isLoading: boolean,
+  userList: UserDetailInfo[]
+): ReactNode => {
+  const hasResult = Array.isArray(userList) && userList.length > 0;
+
+  if (!isLoading && hasResult) {
+    return <ResultList userList={userList} />;
+  } else {
+    return null;
+  }
+};
 
 const SearchContainer = () => {
   const [isMounted, setIsMounted] = useState(false);
@@ -71,11 +90,8 @@ const SearchContainer = () => {
   return (
     <div className={styles.container}>
       <SearchForm onSearch={onSearch} onInputChange={onInputChange} />
-      {isLoading ? (
-        <div>Loading...</div>
-      ) : Array.isArray(userList) && userList.length > 0 ? (
-        <ResultList userList={userList} />
-      ) : null}
+      {isLoading && <Loading />}
+      {renderResultList(isLoading, userList)}
     </div>
   );
 };
