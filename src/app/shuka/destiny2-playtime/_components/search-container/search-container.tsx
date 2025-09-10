@@ -6,6 +6,7 @@ import SearchForm from './search-form/search-form';
 import styles from './search-container.module.css';
 import ResultList from '../result-list/result-list';
 import Loading from '../loading/loading';
+import NotFound from '../not-found/not-found';
 
 /**
  * userListがある場合、ResultListをレンダーリング
@@ -30,6 +31,7 @@ const SearchContainer = () => {
   const [value, setValue] = useState('');
   const [userList, setUserList] = useState<UserDetailInfo[]>([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [isNotFound, setIsNotFound] = useState(false);
 
   /**
    * Chrome拡張機能により、Hydrate失敗の改善コード
@@ -80,17 +82,20 @@ const SearchContainer = () => {
   const onSearch = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
+    setIsNotFound(false);
     setIsLoading(true);
 
     const res = await searchByName();
     setUserList(res);
     setIsLoading(false);
+    setIsNotFound(res.length === 0);
   };
 
   return (
     <div className={styles.container}>
       <SearchForm onSearch={onSearch} onInputChange={onInputChange} />
       {isLoading && <Loading />}
+      {isNotFound && <NotFound />}
       {renderResultList(isLoading, userList)}
     </div>
   );
