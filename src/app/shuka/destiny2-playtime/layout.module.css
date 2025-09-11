@@ -1,4 +1,10 @@
 .layout {
   background-color: #282c34;
-  color: white;
+  color: #f2f6fc;
+}
+
+.logoWrapper {
+  position: fixed;
+  top: 10px;
+  right: 20px;
 }
