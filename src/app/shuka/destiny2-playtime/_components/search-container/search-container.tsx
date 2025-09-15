@@ -27,23 +27,7 @@ const renderResultList = (
 };
 
 const SearchContainer = () => {
-  const [isMounted, setIsMounted] = useState(false);
   const [value, setValue] = useState('');
-  const [userList, setUserList] = useState<UserDetailInfo[]>([]);
-  const [isLoading, setIsLoading] = useState(false);
-  const [isNotFound, setIsNotFound] = useState(false);
-
-  /**
-   * Chrome拡張機能により、Hydrate失敗の改善コード
-   * TODO：React Hookを考慮
-   */
-  useEffect(() => {
-    setIsMounted(true);
-  }, []);
-
-  if (!isMounted) {
-    return null;
-  }
 
   /**
    * テキストボックスの入力イベントハンドラー
@@ -81,21 +65,12 @@ const SearchContainer = () => {
    */
   const onSearch = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
-    setIsNotFound(false);
-    setIsLoading(true);
-
     const res = await searchByName();
-    setUserList(res);
-    setIsLoading(false);
-    setIsNotFound(res.length === 0);
   };
 
   return (
     <div className={styles.container}>
       <SearchForm onSearch={onSearch} onInputChange={onInputChange} />
-      {isLoading && <Loading />}
-      {isNotFound && <NotFound />}
       {renderResultList(isLoading, userList)}
     </div>
   );

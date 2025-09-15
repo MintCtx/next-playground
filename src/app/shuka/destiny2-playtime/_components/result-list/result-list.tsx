@@ -3,6 +3,7 @@ import PlatformList from '../platform-list/platform-list';
 import NamePlate from './result-item/name-plate/name-plate';
 import ResultItem from './result-item/result-item';
 import { UserDetailInfo } from '@/app/api/shuka/destiny2-playtime/users/types';
+import Link from 'next/link';
 
 type ResultListProps = {
   userList: UserDetailInfo[];
@@ -15,11 +16,17 @@ const renderResultItem = (user: UserDetailInfo) => {
   const { displayName, code, destinyMemberships: memberships } = user;
 
   return (
-    <ResultItem
-      key={code}
-      namePlate={<NamePlate name={displayName} code={code} />}
-      platformList={<PlatformList memberships={memberships} />}
-    />
+    <Link
+      href={
+        memberships[0] ? `../shuka/destiny2-playtime/${memberships[0].id}` : '#'
+      }
+    >
+      <ResultItem
+        key={code}
+        namePlate={<NamePlate name={displayName} code={code} />}
+        platformList={<PlatformList memberships={memberships} />}
+      />
+    </Link>
   );
 };
 
