@@ -2,6 +2,7 @@
   padding: 10px;
   font-size: 20px;
   width: 24vw;
+  min-width: 200px;
   height: fit-content;
   cursor: pointer;
   display: grid;
