@@ -1,8 +1,8 @@
 'use client';
 
 import styles from './search-form.module.css';
-import OperatorImg from '../../assets/imgs/operator-icon.png';
-import ImageButton from '../button/image-button';
+import OperatorImg from '../../../assets/imgs/operator-icon.png';
+import ImageButton from '../../button/image-button';
 import { FormEvent, useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 
@@ -36,6 +36,7 @@ const SearchForm = () => {
     >
       <div className={styles.searchBox}>
         <input
+          className={styles.input}
           type="text"
           placeholder="Search for a Guardian..."
           name="userName"
