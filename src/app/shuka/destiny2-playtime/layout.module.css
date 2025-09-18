@@ -1,4 +1,15 @@
 .layout {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
   background-color: #282c34;
-  color: white;
+  color: #f2f6fc;
+}
+
+.body {
+  display: flex;
+  flex-direction: column;
+  justify-content: baseline;
+  align-items: center;
 }

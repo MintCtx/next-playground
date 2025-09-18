@@ -4,12 +4,14 @@ type ImgButtonProps = {
   src: StaticImageData;
   alt: string;
   type: 'submit';
+  width: number;
+  height: number;
 };
 
-const ImageButton = ({ src, alt, type }: ImgButtonProps) => {
+const ImageButton = ({ src, alt, type, width, height }: ImgButtonProps) => {
   return (
     <button type={type}>
-      <Image src={src} alt={alt} fill={true} />
+      <Image src={src} alt={alt} width={width} height={height} />
     </button>
   );
 };

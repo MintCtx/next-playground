@@ -1,0 +1,5 @@
+.logoWrapper {
+  display: flex;
+  flex-direction: row-reverse;
+  padding-right: 20px;
+}

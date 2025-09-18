@@ -1,0 +1,15 @@
+.title {
+  display: flex;
+  flex-direction: column;
+  font-size: 30px;
+  align-items: center;
+}
+
+.title h1 {
+  display: flex;
+  margin-bottom: 10px;
+}
+
+.title img {
+  margin-right: 30px;
+}
