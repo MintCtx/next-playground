@@ -1,7 +1,7 @@
 import ResultList from '../../_components/result-list/result-list';
-import SearchNotFound from '../../_components/search-not-found/search-not-found';
 import { getBffApiUrl } from '@/app/api/utils';
 import { UserDetailInfo } from '@/app/api/shuka/destiny2-playtime/userName/types';
+import NotFound from '../../_components/not-found/not-found';
 
 type Params = {
   params: {
@@ -43,7 +43,7 @@ const SearchPage = async ({ params }: Params) => {
   const userList = await searchByName(decodedUserName);
 
   if (userList.length === 0) {
-    return <SearchNotFound />;
+    return <NotFound />;
   }
 
   return <ResultList userList={userList}></ResultList>;

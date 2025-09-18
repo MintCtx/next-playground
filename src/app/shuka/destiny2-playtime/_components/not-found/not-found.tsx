@@ -1,5 +1,5 @@
-const SearchNotFound = () => {
+const NotFound = () => {
   return <div>Search complete. Matching name not detected.</div>;
 };
 
-export default SearchNotFound;
+export default NotFound;
