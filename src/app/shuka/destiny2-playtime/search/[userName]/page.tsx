@@ -1,7 +1,7 @@
 import ResultList from '../../_components/result-list/result-list';
 import SearchNotFound from '../../_components/search-not-found/search-not-found';
-import { UserDetailInfo } from '@/app/api/shuka/destiny2-playtime/users/types';
 import { getBffApiUrl } from '@/app/api/utils';
+import { UserDetailInfo } from '@/app/api/shuka/destiny2-playtime/userName/types';
 
 type Params = {
   params: {
@@ -21,7 +21,7 @@ const searchByName = async (userName: string): Promise<UserDetailInfo[]> => {
   const queryString: string = new URLSearchParams(queryParams).toString();
 
   const response = await fetch(
-    `${getBffApiUrl()}/api/shuka/destiny2-playtime/users?${queryString}`,
+    `${getBffApiUrl()}/api/shuka/destiny2-playtime/userName?${queryString}`,
     {
       method: 'GET',
     }
