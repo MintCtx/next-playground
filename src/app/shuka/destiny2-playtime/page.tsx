@@ -34,7 +34,6 @@ const searchByName = async (userName: string): Promise<UserDetailInfo[]> => {
 
 const Destiny2PlayTimePage = async ({ searchParams }: Params) => {
   const { userName } = await searchParams;
-  console.log(userName);
 
   if (!userName) {
     return <></>;
