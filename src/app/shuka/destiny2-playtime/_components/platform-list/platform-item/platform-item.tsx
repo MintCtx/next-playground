@@ -1,11 +1,12 @@
 import Image from 'next/image';
 import styles from './platform-item.module.css';
 import { DestinyMembership } from '@/app/api/shuka/destiny2-playtime/users/types';
+import { getBaseUrl } from '@/app/api/shuka/destiny2-playtime/config';
 
 /**
  * イメージのベースパス
  */
-const basePath = process.env.NEXT_PUBLIC_BUNGIE_BASE_URL;
+const basePath = getBaseUrl();
 
 type PlatformItemProps = {
   membership: DestinyMembership;

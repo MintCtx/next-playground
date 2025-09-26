@@ -1,7 +1,10 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { UserDetailInfo, UserSearchResponseDetail } from './types';
 import { toUserDetailInfoModel } from './utils';
-import { API_KEY, BASE_URL } from '../../destiny2-playtime/config';
+import { getAPIkey, getBaseUrl } from '../config';
+
+const API_KEY = getAPIkey();
+const BASE_URL = getBaseUrl();
 
 /**
  * RequestBody
@@ -55,7 +58,7 @@ export const GET = async (
   const response = await fetch(url, {
     method: 'POST',
     headers: {
-      'X-API-Key': API_KEY!,
+      'X-API-Key': API_KEY,
     },
     body: JSON.stringify(requestBody),
   });

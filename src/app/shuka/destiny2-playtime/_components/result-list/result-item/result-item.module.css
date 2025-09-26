@@ -11,8 +11,10 @@
   align-content: center;
   justify-content: space-between;
   border-radius: 20px;
+  color: #f2f6fc;
   background-color: #586275;
   margin-bottom: 10px;
+  text-decoration: none;
 }
 
 .resultItem:hover {
