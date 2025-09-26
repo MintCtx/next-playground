@@ -1,6 +1,6 @@
 import styles from './title.module.css';
 import Image from 'next/image';
-import titleImg from '../../assets/imgs/raid-icon.png';
+import titleImg from '../../../assets/imgs/raid-icon.png';
 
 const Title = () => {
   return (
