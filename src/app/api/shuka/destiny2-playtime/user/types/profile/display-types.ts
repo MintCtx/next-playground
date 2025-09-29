@@ -1,4 +1,4 @@
-import { GroupForDisplay } from '../clan/types/display-types';
+import { GroupForDisplay } from '../clan/display-types';
 
 /**
  * 画面用 - ユーザー接続情報
@@ -35,9 +35,14 @@ export type CharacterForDisplay = {
  * 画面用 - ユーザーのプロフィール情報
  */
 export type UserProfile = {
-  profile: {
-    user: ProfileDataForDisplay;
-    characters: CharactersDataForDisplay;
-  };
+  user: UserProfileDetail;
   clan: GroupForDisplay;
+};
+
+/**
+ * ユーザー詳細情報
+ */
+export type UserProfileDetail = {
+  profile: ProfileDataForDisplay;
+  characters: CharactersDataForDisplay;
 };

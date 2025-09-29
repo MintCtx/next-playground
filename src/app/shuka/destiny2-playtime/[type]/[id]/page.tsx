@@ -1,9 +1,4 @@
-import {
-  CharactersDataForDisplay,
-  ProfileDataForDisplay,
-  UserProfile,
-} from '@/app/api/shuka/destiny2-playtime/user/types/display-types';
-import { GroupForDisplay } from '@/app/api/shuka/destiny2-playtime/user/clan/types/display-types';
+import { UserProfile } from '@/app/api/shuka/destiny2-playtime/user/types/profile/display-types';
 import { getBffApiUrl } from '@/app/api/utils';
 
 /**
@@ -11,12 +6,7 @@ import { getBffApiUrl } from '@/app/api/utils';
  * @param queryString
  * @returns
  */
-const getProfile = async (
-  queryString: string
-): Promise<{
-  profile: ProfileDataForDisplay;
-  characters: CharactersDataForDisplay;
-}> => {
+const getProfile = async (queryString: string): Promise<UserProfile> => {
   const response = await fetch(
     `${getBffApiUrl()}/api/shuka/destiny2-playtime/user?${queryString}`,
     {
@@ -27,28 +17,14 @@ const getProfile = async (
   return response.json();
 };
 
-/**
- * ユーザーのクラン情報を取得するAPI要請
- */
-const getClanInfo = async (queryString: string): Promise<GroupForDisplay> => {
-  const response = await fetch(
-    `${getBffApiUrl()}/api/shuka/destiny2-playtime/user/clan?${queryString}`,
-    {
-      method: 'GET',
-    }
-  );
-
-  return response.json();
-};
-
-type Params = {
-  params: {
+type UserDetailPageParams = {
+  params: Promise<{
     id: string;
     type: string;
-  };
+  }>;
 };
 
-const UserDetailPage = async ({ params }: Params) => {
+const UserDetailPage = async ({ params }: UserDetailPageParams) => {
   const { id, type } = await params;
 
   const searchParams = new URLSearchParams({
@@ -56,20 +32,15 @@ const UserDetailPage = async ({ params }: Params) => {
     type,
   }).toString();
 
-  const [userDetail, clanInfo] = await Promise.all([
-    getProfile(searchParams),
-    getClanInfo(searchParams),
-  ]);
+  const userDetailProfile = await getProfile(searchParams);
 
-  const userProfile: UserProfile = {
-    profile: {
-      user: userDetail.profile,
-      characters: userDetail.characters,
-    },
-    clan: clanInfo,
-  };
-
-  return <div>画面3{userProfile.clan.name}</div>;
+  return (
+    <div>
+      画面3
+      <p>last played: {userDetailProfile.user.profile.dateLastPlayed}</p>
+      <p>clan: {userDetailProfile.clan.name}</p>
+    </div>
+  );
 };
 
 export default UserDetailPage;

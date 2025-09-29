@@ -1,5 +1,5 @@
-import { Group } from './types/bff-types';
-import { GroupForDisplay } from './types/display-types';
+import { Group } from './bff-types';
+import { GroupForDisplay } from './display-types';
 
 /**
  * BFFモデルから画面用モデルに変換

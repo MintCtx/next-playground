@@ -1,14 +1,14 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { getAPIkey, getBaseUrl } from '../config';
-import { DestinyProfileResponse } from './types/bff-types';
-import { toCharactersDataForDisplay, toProfileDataForDisplay } from './utils';
+import { getRequestBungieApi } from '../utils';
+import { DestinyProfileResponse } from './types/profile/bff-types';
 import {
-  CharactersDataForDisplay,
-  ProfileDataForDisplay,
-} from './types/display-types';
-
-const API_KEY = getAPIkey();
-const BASE_URL = getBaseUrl();
+  toCharactersDataForDisplay,
+  toProfileDataForDisplay,
+} from './types/profile/utils';
+import { UserProfile, UserProfileDetail } from './types/profile/display-types';
+import { DestinyGroupResponse } from './types/clan/bff-types';
+import { GroupForDisplay } from './types/clan/display-types';
+import { toGroupForDisplay } from './types/clan/utils';
 
 /**
  * 取得する情報タイプ
@@ -16,21 +16,69 @@ const BASE_URL = getBaseUrl();
  * 100: Profile
  * 200: Characters
  */
-const QUERY_PARAM = [100, 200];
+const COMPONENT_TYPES = [100, 200];
+
+/**
+ * ユーザーの詳細情報を取得
+ * @param type Destiny Membership type
+ * @param id Destiny Membership id
+ * @returns Promise ユーザー詳細情報
+ */
+const getProfile = async (
+  type: string,
+  id: string
+): Promise<UserProfileDetail> => {
+  const params = new URLSearchParams({
+    components: COMPONENT_TYPES.join(','),
+  });
+
+  const profileEndPoint = `/Platform/Destiny2/${type}/Profile/${id}?${params.toString()}`;
+  const response = await getRequestBungieApi(profileEndPoint);
+
+  const result = (await response.json()) as DestinyProfileResponse;
+  const userDetail: UserProfileDetail = {
+    profile: toProfileDataForDisplay(result.Response.profile.data),
+    characters: toCharactersDataForDisplay(result.Response.characters.data),
+  };
+
+  return userDetail;
+};
+
+/**
+ * ユーザーのClan情報を取得
+ * @param type Destiny Membership type
+ * @param id Destiny Membership id
+ * @returns Promise ユーザーのClan情報
+ */
+const getClanInfo = async (
+  type: string,
+  id: string
+): Promise<GroupForDisplay> => {
+  const clanEndPoint = `/Platform/GroupV2/User/${type}/${id}/0/1`;
+  const response = await getRequestBungieApi(clanEndPoint);
+  const result = (await response.json()) as DestinyGroupResponse;
+
+  // clan 未所属の場合
+  if (!Array.isArray(result.Response.results) || !result.Response.results[0]) {
+    const init: GroupForDisplay = { name: '', avatarPath: '', bannerPath: '' };
+    return init;
+  }
+
+  const groupForDisplay: GroupForDisplay = toGroupForDisplay(
+    result.Response.results[0].group
+  );
+
+  return groupForDisplay;
+};
 
 /**
  * 選択したユーザーの詳細情報取得
  * @param req
- * @returns
+ * @returns ユーザー情報とClan情報
  */
 export const GET = async (
   req: NextRequest
-): Promise<
-  NextResponse<{
-    profile: ProfileDataForDisplay;
-    characters: CharactersDataForDisplay;
-  }>
-> => {
+): Promise<NextResponse<UserProfile>> => {
   const { searchParams } = req.nextUrl;
   const type = searchParams.get('type');
   const id = searchParams.get('id');
@@ -41,25 +89,18 @@ export const GET = async (
     });
   }
 
-  const params = new URLSearchParams({
-    components: QUERY_PARAM.join(','),
-  });
+  const [userDetail, clanInfo] = await Promise.all([
+    getProfile(type, id),
+    getClanInfo(type, id),
+  ]);
 
-  const url = `${BASE_URL}Platform/Destiny2/${type}/Profile/${id}?${params.toString()}`;
-
-  const response = await fetch(url, {
-    method: 'GET',
-    headers: {
-      'X-API-Key': API_KEY,
+  const userProfile: UserProfile = {
+    user: {
+      profile: userDetail.profile,
+      characters: userDetail.characters,
     },
-  });
-
-  const result = (await response.json()) as DestinyProfileResponse;
-
-  const obj = {
-    profile: toProfileDataForDisplay(result.Response.profile.data),
-    characters: toCharactersDataForDisplay(result.Response.characters.data),
+    clan: clanInfo,
   };
 
-  return NextResponse.json(obj);
+  return NextResponse.json(userProfile);
 };

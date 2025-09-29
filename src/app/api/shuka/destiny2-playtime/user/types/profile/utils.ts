@@ -1,8 +1,8 @@
-import { CharactersData, ProfileData } from './types/bff-types';
+import { CharactersData, ProfileData } from './bff-types';
 import {
   CharactersDataForDisplay,
   ProfileDataForDisplay,
-} from './types/display-types';
+} from './display-types';
 
 /**
  * BFFモデルから画面用モデルに変換

@@ -1,10 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { UserDetailInfo, UserSearchResponseDetail } from './types';
 import { toUserDetailInfoModel } from './utils';
-import { getAPIkey, getBaseUrl } from '../config';
-
-const API_KEY = getAPIkey();
-const BASE_URL = getBaseUrl();
+import { postRequestBungieApi } from '../utils';
 
 /**
  * RequestBody
@@ -42,7 +39,7 @@ type UserSearchResponseBody = {
 export const GET = async (
   req: NextRequest
 ): Promise<NextResponse<UserDetailInfo[]>> => {
-  const url = `${BASE_URL}/Platform/User/Search/GlobalName/0`;
+  const endPoint = '/Platform/User/Search/GlobalName/0';
 
   const { searchParams } = req.nextUrl;
   const displayNamePrefix = searchParams.get('name');
@@ -55,14 +52,10 @@ export const GET = async (
     displayNamePrefix,
   };
 
-  const response = await fetch(url, {
-    method: 'POST',
-    headers: {
-      'X-API-Key': API_KEY,
-    },
-    body: JSON.stringify(requestBody),
-  });
-
+  const response = await postRequestBungieApi(
+    endPoint,
+    JSON.stringify(requestBody)
+  );
   const result = (await response.json()) as PostUserResponseBody;
   const resultForComponent: UserDetailInfo[] = toUserDetailInfoModel(
     result.Response.searchResults
