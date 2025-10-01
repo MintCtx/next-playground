@@ -1,13 +1,13 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { getRequestBungieApi } from '../utils';
+import { requestBungieApi } from '../../../../utils';
+import { UserProfile, UserProfileDetail } from './types/profile/display-types';
 import { DestinyProfileResponse } from './types/profile/bff-types';
 import {
   toCharactersDataForDisplay,
   toProfileDataForDisplay,
 } from './types/profile/utils';
-import { UserProfile, UserProfileDetail } from './types/profile/display-types';
-import { DestinyGroupResponse } from './types/clan/bff-types';
 import { GroupForDisplay } from './types/clan/display-types';
+import { DestinyGroupResponse } from './types/clan/bff-types';
 import { toGroupForDisplay } from './types/clan/utils';
 
 /**
@@ -32,8 +32,8 @@ const getProfile = async (
     components: COMPONENT_TYPES.join(','),
   });
 
-  const profileEndPoint = `/Platform/Destiny2/${type}/Profile/${id}?${params.toString()}`;
-  const response = await getRequestBungieApi(profileEndPoint);
+  const endPoint = `/Platform/Destiny2/${type}/Profile/${id}?${params.toString()}`;
+  const response = await requestBungieApi({ endPoint, method: 'GET' });
 
   const result = (await response.json()) as DestinyProfileResponse;
   const userDetail: UserProfileDetail = {
@@ -54,8 +54,8 @@ const getClanInfo = async (
   type: string,
   id: string
 ): Promise<GroupForDisplay> => {
-  const clanEndPoint = `/Platform/GroupV2/User/${type}/${id}/0/1`;
-  const response = await getRequestBungieApi(clanEndPoint);
+  const endPoint = `/Platform/GroupV2/User/${type}/${id}/0/1`;
+  const response = await requestBungieApi({ endPoint, method: 'GET' });
   const result = (await response.json()) as DestinyGroupResponse;
 
   // clan 未所属の場合
@@ -72,16 +72,26 @@ const getClanInfo = async (
 };
 
 /**
- * 選択したユーザーの詳細情報取得
- * @param req
+ * GET メソッドのパスパラメータ
+ */
+type PathParams = {
+  params: Promise<{
+    type: string;
+    id: string;
+  }>;
+};
+
+/**
+ * ユーザー情報とClan情報を取得
+ * @param request NextRequest
+ * @param param1 PathParams
  * @returns ユーザー情報とClan情報
  */
 export const GET = async (
-  req: NextRequest
+  request: NextRequest,
+  { params }: PathParams
 ): Promise<NextResponse<UserProfile>> => {
-  const { searchParams } = req.nextUrl;
-  const type = searchParams.get('type');
-  const id = searchParams.get('id');
+  const { type, id } = await params;
 
   if (!type || !id) {
     return new NextResponse('Missing type or id in searchParams', {
@@ -89,17 +99,17 @@ export const GET = async (
     });
   }
 
-  const [userDetail, clanInfo] = await Promise.all([
+  const [{ profile, characters }, clan] = await Promise.all([
     getProfile(type, id),
     getClanInfo(type, id),
   ]);
 
   const userProfile: UserProfile = {
     user: {
-      profile: userDetail.profile,
-      characters: userDetail.characters,
+      profile: profile,
+      characters: characters,
     },
-    clan: clanInfo,
+    clan,
   };
 
   return NextResponse.json(userProfile);

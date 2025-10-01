@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { UserDetailInfo, UserSearchResponseDetail } from './types';
 import { toUserDetailInfoModel } from './utils';
-import { postRequestBungieApi } from '../utils';
+import { requestBungieApi } from '../utils';
 
 /**
  * RequestBody
@@ -52,10 +52,11 @@ export const GET = async (
     displayNamePrefix,
   };
 
-  const response = await postRequestBungieApi(
+  const response = await requestBungieApi({
     endPoint,
-    JSON.stringify(requestBody)
-  );
+    method: 'POST',
+    requestBody,
+  });
   const result = (await response.json()) as PostUserResponseBody;
   const resultForComponent: UserDetailInfo[] = toUserDetailInfoModel(
     result.Response.searchResults

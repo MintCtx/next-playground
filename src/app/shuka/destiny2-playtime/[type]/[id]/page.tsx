@@ -1,18 +1,18 @@
-import { UserProfile } from '@/app/api/shuka/destiny2-playtime/user/types/profile/display-types';
+import { UserProfile } from '@/app/api/shuka/destiny2-playtime/users/[type]/[id]/profile/types/profile/display-types';
 import { getBffApiUrl } from '@/app/api/utils';
 
 /**
  * ユーザー情報を取得するAPI要請
- * @param queryString
- * @returns
+ * @param type Destiny Membership Type
+ * @param id Destiny Membership ID
+ * @returns Promise ユーザーの詳細プロフィール
  */
-const getProfile = async (queryString: string): Promise<UserProfile> => {
-  const response = await fetch(
-    `${getBffApiUrl()}/api/shuka/destiny2-playtime/user?${queryString}`,
-    {
-      method: 'GET',
-    }
-  );
+const getProfile = async (type: string, id: string): Promise<UserProfile> => {
+  const endPoint = `/api/shuka/destiny2-playtime/users/${type}/${id}/profile`;
+  const url = new URL(endPoint, getBffApiUrl());
+  const response = await fetch(url, {
+    method: 'GET',
+  });
 
   return response.json();
 };
@@ -25,14 +25,8 @@ type UserDetailPageParams = {
 };
 
 const UserDetailPage = async ({ params }: UserDetailPageParams) => {
-  const { id, type } = await params;
-
-  const searchParams = new URLSearchParams({
-    id,
-    type,
-  }).toString();
-
-  const userDetailProfile = await getProfile(searchParams);
+  const { type, id } = await params;
+  const userDetailProfile = await getProfile(type, id);
 
   return (
     <div>

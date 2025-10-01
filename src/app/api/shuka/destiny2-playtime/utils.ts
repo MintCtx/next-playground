@@ -1,3 +1,5 @@
+import { HTTP_METHOD } from 'next/dist/server/web/http';
+
 /**
  * Bungie API keyを取得
  * @returns BUNGIE_API_KEY
@@ -37,34 +39,34 @@ const getBungieHeaders = (): { 'X-API-Key': string } => {
 };
 
 /**
- * GET request Bungie API
- * @param endPoint url
- * @returns Promise<Response>
+ * Bungie API 要請関数のパラメータタイプ
  */
-export const getRequestBungieApi = (endPoint: string) => {
-  const url = new URL(endPoint, getBungieApiBaseUrl());
-
-  return fetch(url, {
-    method: 'GET',
-    headers: getBungieHeaders(),
-  });
+type BungieApiParams<T> = {
+  endPoint: string;
+  method: HTTP_METHOD;
+  requestBody?: T;
 };
 
 /**
- * POST request Bungie API
- * @param endPoint url
- * @param requestBody requestBody
- * @returns Promise<Response>
+ * Bungie API 要請
+ * @param param0 BungieApiParams<T>
+ * @returns Promise<Response> API Response
  */
-export const postRequestBungieApi = (
-  endPoint: string,
-  requestBody: string
-): Promise<Response> => {
+export const requestBungieApi = <T>({
+  endPoint,
+  method,
+  requestBody,
+}: BungieApiParams<T>): Promise<Response> => {
   const url = new URL(endPoint, getBungieApiBaseUrl());
 
-  return fetch(url, {
-    method: 'POST',
+  const requestOptions: RequestInit = {
+    method,
     headers: getBungieHeaders(),
-    body: requestBody,
-  });
+  };
+
+  if (requestBody) {
+    requestOptions.body = JSON.stringify(requestBody);
+  }
+
+  return fetch(url, requestOptions);
 };
