@@ -23,9 +23,8 @@ const SearchForm = () => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
     const userName = formData.get('userName') as string;
-    const encodedUserName = encodeURIComponent(userName);
 
-    router.push(`/shuka/destiny2-playtime/search/${encodedUserName}`);
+    router.push(`/shuka/destiny2-playtime?userName=${userName}`);
   };
 
   return (
