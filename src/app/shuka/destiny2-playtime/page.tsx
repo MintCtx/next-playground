@@ -3,10 +3,13 @@ import { UserDetailInfo } from '@/app/api/shuka/destiny2-playtime/users/types';
 import NotFound from './_components/not-found/not-found';
 import ResultList from './_components/result-list/result-list';
 
-type Params = {
-  searchParams: {
+/**
+ * Destiny2PlayTimePageのParamsタイプ
+ */
+type Destiny2PlayTimePageParams = {
+  searchParams: Promise<{
     userName: string;
-  };
+  }>;
 };
 
 /**
@@ -19,20 +22,23 @@ const searchByName = async (userName: string): Promise<UserDetailInfo[]> => {
     name: userName,
   };
   const queryString: string = new URLSearchParams(queryParams).toString();
-
-  const response = await fetch(
-    `${getBffApiUrl()}/api/shuka/destiny2-playtime/users?${queryString}`,
-    {
-      method: 'GET',
-    }
+  const url = new URL(
+    `/api/shuka/destiny2-playtime/users?${queryString}`,
+    getBffApiUrl()
   );
+
+  const response = await fetch(url, {
+    method: 'GET',
+  });
 
   const data = await response.json();
 
   return data;
 };
 
-const Destiny2PlayTimePage = async ({ searchParams }: Params) => {
+const Destiny2PlayTimePage = async ({
+  searchParams,
+}: Destiny2PlayTimePageParams) => {
   const { userName } = await searchParams;
 
   if (!userName) {
