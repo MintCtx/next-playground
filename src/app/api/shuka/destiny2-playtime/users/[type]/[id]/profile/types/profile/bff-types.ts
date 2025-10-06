@@ -1,4 +1,4 @@
-import { UserInfoCard } from '../../../users/types';
+import { UserInfoCard } from "../../../../../types";
 
 /**
  * BFF用 - ユーザー詳細のレスポンス

@@ -1,4 +1,4 @@
-import { UserInfoCard } from '../../../users/types';
+import { UserInfoCard } from "../../../../../types";
 
 /**
  * BFF用 - ユーザーのグループ情報取得レスポンス
