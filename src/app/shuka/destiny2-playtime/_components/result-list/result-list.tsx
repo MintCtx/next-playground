@@ -12,21 +12,28 @@ type ResultListProps = {
  * ResultItemをレンダリングする
  */
 const renderResultItem = (user: UserDetailInfo) => {
-  const { displayName, code, destinyMemberships: memberships } = user;
+  const { displayName, code, destinyMemberships } = user;
+  const membershipId = destinyMemberships[0].id;
 
   return (
     <ResultItem
-      key={code}
+      key={code ?? membershipId}
+      code={code}
       namePlate={<NamePlate name={displayName} code={code} />}
-      platformList={<PlatformList memberships={memberships} />}
+      platformList={<PlatformList memberships={destinyMemberships} />}
+      memberships={destinyMemberships}
     />
   );
 };
 
 const ResultList = ({ userList }: ResultListProps) => {
+  const filteredUserList = userList.filter(
+    (user) => user.destinyMemberships.length > 0
+  );
+
   return (
     <ul className={styles.resultList}>
-      {userList.map((user) => renderResultItem(user))}
+      {filteredUserList.map((user) => renderResultItem(user))}
     </ul>
   );
 };
