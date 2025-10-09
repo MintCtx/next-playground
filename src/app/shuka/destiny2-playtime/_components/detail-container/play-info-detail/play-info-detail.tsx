@@ -8,8 +8,8 @@ type PlayInfoProps = {
 const PlayInfoDetail = ({ title, value }: PlayInfoProps) => {
   return (
     <div className={styles.container}>
-      <p className={styles.column}>{title}</p>
-      <p className={styles.value}>{value}</p>
+      <p>{title}</p>
+      <p>{value}</p>
     </div>
   );
 };
