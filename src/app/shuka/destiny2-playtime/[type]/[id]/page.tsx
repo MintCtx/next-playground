@@ -1,5 +1,6 @@
 import { UserProfile } from '@/app/api/shuka/destiny2-playtime/users/[type]/[id]/profile/types/profile/display-types';
 import { getBffApiUrl } from '@/app/api/utils';
+import DetailContainer from '../../_components/detail-container/detail-container';
 
 /**
  * ユーザー情報を取得するAPI要請
@@ -28,13 +29,7 @@ const UserDetailPage = async ({ params }: UserDetailPageParams) => {
   const { type, id } = await params;
   const userDetailProfile = await getProfile(type, id);
 
-  return (
-    <div>
-      画面3
-      <p>last played: {userDetailProfile.user.profile.dateLastPlayed}</p>
-      <p>clan: {userDetailProfile.clan.name}</p>
-    </div>
-  );
+  return <DetailContainer />;
 };
 
 export default UserDetailPage;

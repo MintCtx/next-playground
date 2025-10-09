@@ -1,0 +1,12 @@
+.clanInfo {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.clanInfo p {
+  font-size: 20px;
+  margin-left: 10px;
+}
