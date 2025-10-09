@@ -1,0 +1,12 @@
+.warning {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.warning p {
+  margin-bottom: 5px;
+  font-size: large;
+  color: #bdd5ff;
+}
