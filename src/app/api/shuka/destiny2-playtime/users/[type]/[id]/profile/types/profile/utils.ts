@@ -13,9 +13,11 @@ import {
 export const toProfileDataForDisplay = (
   bffModel: ProfileData
 ): ProfileDataForDisplay => {
-  const { dateLastPlayed, currentGuardianRank } = bffModel;
+  const { userInfo, dateLastPlayed, currentGuardianRank } = bffModel;
+  const { bungieGlobalDisplayName: name, bungieGlobalDisplayNameCode: code } =
+    userInfo;
 
-  return { dateLastPlayed, currentGuardianRank };
+  return { name, code, dateLastPlayed, currentGuardianRank };
 };
 
 /**

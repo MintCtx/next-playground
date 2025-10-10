@@ -1,4 +1,4 @@
-import { UserInfoCard } from "../../../../../types";
+import { UserInfoCard } from '../../../../../types';
 
 /**
  * BFF用 - ユーザー詳細のレスポンス
@@ -35,7 +35,7 @@ type ProfileComponent = {
  * BFF用 - プロフィールデータ
  */
 export type ProfileData = {
-  usrInfo: UserInfoCard;
+  userInfo: UserInfoCard;
   dateLastPlayed: string;
   versionsOwned: number;
   characterIds: Array<number>;
