@@ -1,4 +1,4 @@
-import { UserInfoCard } from "../../../../../types";
+import { UserInfoCard } from '../../../../../types';
 
 /**
  * BFF用 - ユーザーのグループ情報取得レスポンス
@@ -9,7 +9,7 @@ export type DestinyGroupResponse = {
   ThrottleSeconds: number;
   ErrorStatus: string;
   Message: string;
-  MessageData: {};
+  MessageData: object;
   DetailedErrorTrace: string;
 };
 

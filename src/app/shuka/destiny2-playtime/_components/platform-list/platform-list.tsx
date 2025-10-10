@@ -1,4 +1,4 @@
-import { DestinyMembership } from '@/app/api/shuka/destiny2-playtime/userName/types';
+import { DestinyMembership } from '@/app/api/shuka/destiny2-playtime/users/types';
 import PlatformItem from './platform-item/platform-item';
 import styles from './platform-list.module.css';
 
