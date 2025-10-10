@@ -4,6 +4,8 @@ import { GroupForDisplay } from '../clan/display-types';
  * 画面用 - ユーザー接続情報
  */
 export type ProfileDataForDisplay = {
+  name: string;
+  code: number | null;
   dateLastPlayed: string;
   currentGuardianRank: number;
 };
