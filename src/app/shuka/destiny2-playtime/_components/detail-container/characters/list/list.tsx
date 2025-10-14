@@ -1,5 +1,5 @@
-import CharacterItem from '../item/character-item';
-import styles from './character-list.module.css';
+import CharacterItem from '../item/item';
+import styles from './list.module.css';
 
 const tmpList = [0, 1, 2];
 

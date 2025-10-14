@@ -1,4 +1,4 @@
-import styles from './character-item.module.css';
+import styles from './item.module.css';
 
 const CharacterItem = () => {
   return <div className={styles.characterItem}>character-item</div>;
