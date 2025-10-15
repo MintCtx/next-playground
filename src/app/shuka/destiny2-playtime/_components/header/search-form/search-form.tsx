@@ -5,6 +5,7 @@ import OperatorImg from '../../../assets/imgs/operator-icon.png';
 import ImageButton from '../../button/image-button';
 import { FormEvent, useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
+import { getManifest } from '../../../lib/getManifest';
 
 const SearchForm = () => {
   const router = useRouter();
@@ -13,6 +14,23 @@ const SearchForm = () => {
   // iPad Chrome hydrate error
   useEffect(() => {
     setIsMounted(true);
+  }, []);
+
+  // localStorageからDefinitionを取得
+  useEffect(() => {
+    const getInitialManifest = async () => {
+      const data = await getManifest();
+
+      // 最新バージョンの場合、localStorageに保存しない
+      if (!data || data.isLastestVersion === true) {
+        return;
+      }
+
+      // 最新バージョンではない場合、最新バージョンのDefinitionをlocalStorageに保存
+      localStorage.setItem('Definition', JSON.stringify(data));
+    };
+
+    getInitialManifest();
   }, []);
 
   if (!isMounted) {
