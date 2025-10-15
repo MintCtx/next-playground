@@ -48,7 +48,6 @@ export const GET = async (): Promise<NextResponse<ContentDefinition>> => {
     const response = await requestBungieApi({
       endPoint,
       method: 'GET',
-      cache: 'no-store',
     });
 
     const data = (await response.json()) as FetchResponse;

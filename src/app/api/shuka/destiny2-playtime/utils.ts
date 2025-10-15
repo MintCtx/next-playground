@@ -45,7 +45,6 @@ type BungieApiParams<T> = {
   endPoint: string;
   method: HTTP_METHOD;
   requestBody?: T;
-  cache?: RequestCache;
 };
 
 /**
@@ -57,14 +56,12 @@ export const requestBungieApi = <T>({
   endPoint,
   method,
   requestBody,
-  cache,
 }: BungieApiParams<T>): Promise<Response> => {
   const url = new URL(endPoint, getBungieApiBaseUrl());
 
   const requestOptions: RequestInit = {
     method,
     headers: getBungieHeaders(),
-    cache,
   };
 
   if (requestBody) {
