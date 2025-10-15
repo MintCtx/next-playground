@@ -9,7 +9,7 @@ export type DestinyProfileResponse = {
   ThrottleSeconds: number;
   ErrorStatus: string;
   Message: string;
-  MessageData: {};
+  MessageData: object;
 };
 
 /**

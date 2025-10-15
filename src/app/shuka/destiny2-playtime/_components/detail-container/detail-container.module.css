@@ -1,0 +1,13 @@
+.detailInfo {
+  width: 25vw;
+  min-width: 300px;
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  border: 2px solid #415888;
+  border-radius: 20px;
+  color: #f2f6fc;
+  background-color: #1c263b;
+}
