@@ -44,5 +44,6 @@ type ComponentContentPath = {
  */
 export type ContentDefinition = {
   isLastestVersion?: boolean;
+  version?: string;
   [key: string]: unknown;
 };

@@ -1,32 +1,17 @@
-import { NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 import {
   ContentDefinition,
   FetchResponse,
   WorldComponentContentPath,
 } from './types';
 import { getBungieApiBaseUrl, requestBungieApi } from '../utils';
-
-/**
- * BungieのManifestのバージョン
- */
-let lastVerstion: string | undefined = undefined;
+import { components } from '@/app/shuka/destiny2-playtime/lib/manifest/constants';
 
 /**
  * 言語
  * TODO - 多言語対応
  */
 const language = 'en';
-
-/**
- * ハッシュ値のマッピング時に参照するDefinition名の一覧
- */
-const components = [
-  'DestinyClassDefinition',
-  'DestinyGenderDefinition',
-  'DestinyRaceDefinition',
-  'DestinyRecordDefinition',
-  'DestinyGuardianRankDefinition',
-] as const;
 
 /**
  * Destiny Record Item Response
@@ -39,10 +24,16 @@ type DestinyRecordItem = {
 
 /**
  * BungieのManifestを取得
- * @returns バージョンとDefinition
+ * @param req localStorageのManifestバージョン
+ * @returns
  */
-export const GET = async (): Promise<NextResponse<ContentDefinition>> => {
+export const GET = async (
+  req: NextRequest
+): Promise<NextResponse<ContentDefinition>> => {
   const endPoint = '/Platform/Destiny2/Manifest/';
+
+  // localStorageのManifestバージョン
+  const localVersion = req.headers.get('X-Manifest-Version');
 
   try {
     const response = await requestBungieApi({
@@ -54,7 +45,7 @@ export const GET = async (): Promise<NextResponse<ContentDefinition>> => {
 
     // バージョン確認
     const currentVersion = data.Response.version;
-    const isLastestVersion = lastVerstion === currentVersion;
+    const isLastestVersion = localVersion === currentVersion;
 
     // 最新バージョンの場合、更新しない
     if (isLastestVersion) {
@@ -66,13 +57,11 @@ export const GET = async (): Promise<NextResponse<ContentDefinition>> => {
         data.Response.jsonWorldComponentContentPaths;
 
       const definitiaonMap = await getContentManifest(worldContentPaths);
-
-      // サーバでバージョン同期化
-      lastVerstion = currentVersion;
+      definitiaonMap.version = currentVersion;
 
       return NextResponse.json(definitiaonMap);
     }
-  } catch (error) {
+  } catch (error: unknown) {
     return new NextResponse('Internal Server Error', { status: 500 });
   }
 };
