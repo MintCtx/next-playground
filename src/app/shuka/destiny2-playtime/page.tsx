@@ -31,7 +31,13 @@ const searchByName = async (userName: string): Promise<UserDetailInfo[]> => {
     method: 'GET',
   });
 
-  const data = await response.json();
+  if (response.status === 400 || response.status === 500) {
+    // throw new Error('Failed to get user profile.');
+    const msg = await response.text();
+    throw new Error(`${response.status} | ` + msg);
+  }
+
+  const data = (await response.json()) as UserDetailInfo[];
 
   return data;
 };

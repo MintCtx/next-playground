@@ -15,6 +15,12 @@ const getProfile = async (type: string, id: string): Promise<UserProfile> => {
     method: 'GET',
   });
 
+  if (response.status === 400 || response.status === 500) {
+    // throw new Error('Failed to search user name.');
+    const msg = await response.text();
+    throw new Error(`${response.status} | ` + msg);
+  }
+
   return response.json();
 };
 
