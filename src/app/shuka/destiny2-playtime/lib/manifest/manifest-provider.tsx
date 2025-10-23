@@ -77,6 +77,7 @@ const ManifestProvider = ({ children }: { children: React.ReactNode }) => {
           return;
         }
 
+        // NOTE - BFFで取得したデータから最新バージョンなのかを確認後、localStorageにバージョン情報とManifest内容を分けて格納する
         const data = (await res.json()) as ContentDefinition;
         const { version, isLastestVersion, ...dataWithoutVersion } = data;
 
@@ -86,6 +87,7 @@ const ManifestProvider = ({ children }: { children: React.ReactNode }) => {
           setManifestSafe(dataWithoutVersion);
         }
       } catch (error: unknown) {
+        console.error(error);
         setManifestSafe(null);
       }
     };

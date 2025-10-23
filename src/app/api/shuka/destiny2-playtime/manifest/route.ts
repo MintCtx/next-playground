@@ -10,6 +10,7 @@ import { components } from '@/app/shuka/destiny2-playtime/lib/manifest/constants
 /**
  * 言語
  * TODO - 多言語対応
+ * 参照: https://nextjs.org/docs/15/app/guides/internationalization
  */
 const language = 'en';
 
@@ -45,22 +46,20 @@ export const GET = async (
 
     // バージョン確認
     const currentVersion = data.Response.version;
-    const isLastestVersion = localVersion === currentVersion;
 
     // 最新バージョンの場合、更新しない
-    if (isLastestVersion) {
+    if (localVersion === currentVersion) {
       const lastestData = { isLastestVersion: true } as ContentDefinition;
       return NextResponse.json(lastestData, { status: 200 });
-    } else {
-      // 最新バージョンではない場合、各定義を更新する
-      const worldContentPaths: WorldComponentContentPath =
-        data.Response.jsonWorldComponentContentPaths;
-
-      const definitiaonMap = await getContentManifest(worldContentPaths);
-      definitiaonMap.version = currentVersion;
-
-      return NextResponse.json(definitiaonMap);
     }
+    // 最新バージョンではない場合、各定義を更新する
+    const worldContentPaths: WorldComponentContentPath =
+      data.Response.jsonWorldComponentContentPaths;
+
+    const definitiaonMap = await getContentManifest(worldContentPaths);
+    definitiaonMap.version = currentVersion;
+
+    return NextResponse.json(definitiaonMap);
   } catch (error: unknown) {
     return new NextResponse('Internal Server Error', { status: 500 });
   }
@@ -96,8 +95,8 @@ const getContentManifest = async (
       // 「称号」のみフィルタリング
       const filteredObject = Object.fromEntries(
         Object.entries(
-          datas[index] as { [key: string]: DestinyRecordItem }
-        ).filter(([key, item]) => item.titleInfo?.hasTitle === true)
+          datas.at(index) as { [key: string]: DestinyRecordItem }
+        ).filter(([, item]) => item.titleInfo?.hasTitle === true)
       );
 
       contents[component] = filteredObject;
