@@ -61,6 +61,7 @@ export const GET = async (
 
     return NextResponse.json(definitiaonMap);
   } catch (error: unknown) {
+    console.error(error);
     return new NextResponse('Internal Server Error', { status: 500 });
   }
 };
