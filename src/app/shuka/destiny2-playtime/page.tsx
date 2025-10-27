@@ -31,8 +31,7 @@ const searchByName = async (userName: string): Promise<UserDetailInfo[]> => {
     method: 'GET',
   });
 
-  if (response.status === 400 || response.status === 500) {
-    // throw new Error('Failed to get user profile.');
+  if (response.status !== 200) {
     const msg = await response.text();
     throw new Error(`${response.status} | ` + msg);
   }

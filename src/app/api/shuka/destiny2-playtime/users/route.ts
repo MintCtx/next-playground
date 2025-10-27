@@ -65,7 +65,8 @@ export const GET = async (
     );
 
     return NextResponse.json(resultForComponent);
-  } catch (error) {
+  } catch (error: unknown) {
+    console.error(error);
     return new NextResponse('Internal Server Error', { status: 500 });
   }
 };

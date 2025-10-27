@@ -15,8 +15,7 @@ const getProfile = async (type: string, id: string): Promise<UserProfile> => {
     method: 'GET',
   });
 
-  if (response.status === 400 || response.status === 500) {
-    // throw new Error('Failed to search user name.');
+  if (response.status !== 200) {
     const msg = await response.text();
     throw new Error(`${response.status} | ` + msg);
   }

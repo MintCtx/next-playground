@@ -114,7 +114,8 @@ export const GET = async (
     };
 
     return NextResponse.json(userProfile);
-  } catch (error) {
+  } catch (error: unknown) {
+    console.error(error);
     return new NextResponse('Internal Server Error', { status: 500 });
   }
 };
