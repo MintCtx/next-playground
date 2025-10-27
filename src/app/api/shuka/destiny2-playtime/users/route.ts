@@ -41,26 +41,32 @@ export const GET = async (
 ): Promise<NextResponse<UserDetailInfo[]>> => {
   const endPoint = '/Platform/User/Search/GlobalName/0';
 
-  const { searchParams } = req.nextUrl;
-  const displayNamePrefix = searchParams.get('name');
+  try {
+    const { searchParams } = req.nextUrl;
+    const displayNamePrefix = searchParams.get('name');
 
-  if (!displayNamePrefix) {
-    return new NextResponse('Internal Server Error', { status: 400 });
+    if (!displayNamePrefix) {
+      return new NextResponse('Missing name in SearchParams', { status: 400 });
+    }
+
+    const requestBody: UserSearchRequestBody = {
+      displayNamePrefix,
+    };
+
+    const response = await requestBungieApi({
+      endPoint,
+      method: 'POST',
+      requestBody,
+    });
+
+    const result = (await response.json()) as PostUserResponseBody;
+    const resultForComponent: UserDetailInfo[] = toUserDetailInfoModel(
+      result.Response.searchResults
+    );
+
+    return NextResponse.json(resultForComponent);
+  } catch (error: unknown) {
+    console.error(error);
+    return new NextResponse('Internal Server Error', { status: 500 });
   }
-
-  const requestBody: UserSearchRequestBody = {
-    displayNamePrefix,
-  };
-
-  const response = await requestBungieApi({
-    endPoint,
-    method: 'POST',
-    requestBody,
-  });
-  const result = (await response.json()) as PostUserResponseBody;
-  const resultForComponent: UserDetailInfo[] = toUserDetailInfoModel(
-    result.Response.searchResults
-  );
-
-  return NextResponse.json(resultForComponent);
 };

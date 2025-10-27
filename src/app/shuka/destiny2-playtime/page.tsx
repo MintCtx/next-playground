@@ -31,7 +31,12 @@ const searchByName = async (userName: string): Promise<UserDetailInfo[]> => {
     method: 'GET',
   });
 
-  const data = await response.json();
+  if (response.status !== 200) {
+    const msg = await response.text();
+    throw new Error(`${response.status} | ` + msg);
+  }
+
+  const data = (await response.json()) as UserDetailInfo[];
 
   return data;
 };

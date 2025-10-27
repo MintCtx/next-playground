@@ -15,6 +15,11 @@ const getProfile = async (type: string, id: string): Promise<UserProfile> => {
     method: 'GET',
   });
 
+  if (response.status !== 200) {
+    const msg = await response.text();
+    throw new Error(`${response.status} | ` + msg);
+  }
+
   return response.json();
 };
 

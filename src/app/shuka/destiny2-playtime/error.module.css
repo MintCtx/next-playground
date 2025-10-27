@@ -1,0 +1,18 @@
+.container {
+  color: #deddbd;
+  margin-top: 30px;
+  padding: 30px;
+  background-color: #415888;
+  border: 3px solid #1c263b;
+  border-radius: 30px;
+}
+
+.main {
+  font-size: x-large;
+  padding: 10px;
+}
+
+.sub {
+  font-size: larger;
+  padding: 10px;
+}

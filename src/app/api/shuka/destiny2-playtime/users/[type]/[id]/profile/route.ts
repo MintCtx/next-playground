@@ -91,26 +91,31 @@ export const GET = async (
   request: NextRequest,
   { params }: PathParams
 ): Promise<NextResponse<UserProfile>> => {
-  const { type, id } = await params;
+  try {
+    const { type, id } = await params;
 
-  if (!type || !id) {
-    return new NextResponse('Missing type or id in searchParams', {
-      status: 400,
-    });
+    if (!type || !id) {
+      return new NextResponse('Missing type or id in searchParams', {
+        status: 400,
+      });
+    }
+
+    const [{ profile, characters }, clan] = await Promise.all([
+      getProfile(type, id),
+      getClanInfo(type, id),
+    ]);
+
+    const userProfile: UserProfile = {
+      user: {
+        profile: profile,
+        characters: characters,
+      },
+      clan,
+    };
+
+    return NextResponse.json(userProfile);
+  } catch (error: unknown) {
+    console.error(error);
+    return new NextResponse('Internal Server Error', { status: 500 });
   }
-
-  const [{ profile, characters }, clan] = await Promise.all([
-    getProfile(type, id),
-    getClanInfo(type, id),
-  ]);
-
-  const userProfile: UserProfile = {
-    user: {
-      profile: profile,
-      characters: characters,
-    },
-    clan,
-  };
-
-  return NextResponse.json(userProfile);
 };
