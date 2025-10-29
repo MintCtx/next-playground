@@ -7,7 +7,10 @@ import { GroupForDisplay } from './display-types';
  * @returns GroupForDisplay
  */
 export const toGroupForDisplay = (bffModel: Group): GroupForDisplay => {
-  const { name, bannerPath, avatarPath } = bffModel;
+  const {
+    name,
+    clanInfo: { clanCallsign },
+  } = bffModel;
 
-  return { name, bannerPath, avatarPath };
+  return { name, clanCallsign };
 };

@@ -3,6 +3,5 @@
  */
 export type GroupForDisplay = {
   name: string;
-  bannerPath: string;
-  avatarPath: string;
+  clanCallsign: string;
 };

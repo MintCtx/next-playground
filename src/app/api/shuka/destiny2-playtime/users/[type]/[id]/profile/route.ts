@@ -60,7 +60,7 @@ const getClanInfo = async (
 
   // clan 未所属の場合
   if (!Array.isArray(result.Response.results) || !result.Response.results[0]) {
-    const init: GroupForDisplay = { name: '', avatarPath: '', bannerPath: '' };
+    const init: GroupForDisplay = { name: '', clanCallsign: '' };
     return init;
   }
 

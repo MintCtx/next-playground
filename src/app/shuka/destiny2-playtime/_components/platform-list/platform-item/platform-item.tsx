@@ -1,24 +1,10 @@
 import Image from 'next/image';
 import styles from './platform-item.module.css';
 import { DestinyMembership } from '@/app/api/shuka/destiny2-playtime/users/types';
-import { getBungieApiBaseUrl } from '@/app/api/shuka/destiny2-playtime/utils';
-
-/**
- * イメージのベースパス
- */
-const basePath = getBungieApiBaseUrl();
+import { makeIconPath } from '../../../utils/img/utils';
 
 type PlatformItemProps = {
   membership: DestinyMembership;
-};
-
-/**
- * 外部ドメインとイメージパス合成し、返還する
- * @param iconPath レスポンスから取得したプラットフォームのアイコンパス
- * @returns 外部ドメインを合わせたアイコンパス|空白
- */
-const makeIconPath = (iconPath: string): string => {
-  return iconPath ? new URL(iconPath, basePath).toString() : '';
 };
 
 const PlatformItem = ({ membership: { iconPath } }: PlatformItemProps) => {
