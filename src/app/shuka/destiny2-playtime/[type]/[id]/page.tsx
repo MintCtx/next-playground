@@ -18,6 +18,9 @@ const getProfile = async (type: string, id: string): Promise<UserProfile> => {
   return response.json();
 };
 
+/**
+ * UserDetailPageのPropsタイプ
+ */
 type UserDetailPageParams = {
   params: Promise<{
     id: string;
@@ -27,9 +30,9 @@ type UserDetailPageParams = {
 
 const UserDetailPage = async ({ params }: UserDetailPageParams) => {
   const { type, id } = await params;
-  const userDetailProfile = await getProfile(type, id);
+  const userDetail = await getProfile(type, id);
 
-  return <DetailContainer />;
+  return <DetailContainer userDetail={userDetail} />;
 };
 
 export default UserDetailPage;

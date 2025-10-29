@@ -1,13 +1,21 @@
 'use client';
 
 import { useState } from 'react';
+import { CharactersDataForDisplay } from '@/app/api/shuka/destiny2-playtime/users/[type]/[id]/profile/types/profile/display-types';
 import Image from 'next/image';
 import styles from './characters.module.css';
 import CharacterList from './list/list';
 import suppressorImg from '../../../assets/imgs/suppressor-icon.png';
 import dropdownImg from '../../../assets/imgs/dropdown.png';
 
-const Characters = () => {
+/**
+ * CharactersコンポーネントPropsタイプ
+ */
+type CharactersProps = {
+  characters: CharactersDataForDisplay;
+};
+
+const Characters = ({ characters }: CharactersProps) => {
   const [isClicked, setIsClicked] = useState<boolean>(false);
 
   /**
@@ -27,7 +35,7 @@ const Characters = () => {
           <Image src={dropdownImg} alt="drop-down" width={15} height={15} />
         )}
       </div>
-      {isClicked && <CharacterList />}
+      {isClicked && <CharacterList characters={characters} />}
     </div>
   );
 };

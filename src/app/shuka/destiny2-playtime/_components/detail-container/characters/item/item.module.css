@@ -1,6 +1,39 @@
 .characterItem {
-  border: 1px solid gray;
+  border: 0.5px solid white;
   width: 100%;
-  height: 80px;
-  margin-top: 10px;
+  height: 70px;
+  position: relative;
+  color: inherit;
+  text-shadow: 2px 2px 5px black;
+}
+
+.characterItem img {
+  z-index: 1;
+  object-fit: fill;
+}
+
+.characterItem div {
+  padding-left: 60px;
+  padding-bottom: 5px;
+  font-size: small;
+  position: relative;
+  z-index: 2;
+}
+
+.secondDiv {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-right: 10px;
+}
+
+.thirdDiv {
+  display: flex;
+  justify-content: end;
+  align-items: center;
+  padding-right: 10px;
+}
+
+.light {
+  color: yellow;
 }
